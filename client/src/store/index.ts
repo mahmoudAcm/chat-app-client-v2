@@ -1,16 +1,22 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import { configureStore, createSlice } from '@reduxjs/toolkit';
+
+
+const initialState = { value: 0 };
+
+const counter = createSlice({
+  name: 'counter',
+  initialState,
+  reducers: {
+    increment(state, action){
+      console.log(action);
+      state.value++;
+    }
+  }
+});
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    counter: counter.reducer
   },
+  devTools: process.env.NODE_ENV !== 'production'
 });
-
-export type RootState = ReturnType<typeof store.getState>;
-export type AppThunk<ReturnType = void> = ThunkAction<
-  ReturnType,
-  RootState,
-  unknown,
-  Action<string>
->;
