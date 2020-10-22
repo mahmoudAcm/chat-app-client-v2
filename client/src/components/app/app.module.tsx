@@ -9,7 +9,7 @@ const App = () => {
             <Router>
                 <Navigation />
                 <Switch>
-                     <SideBar />
+                    <SideBar />
                 </Switch>
             </Router>
         </div>
