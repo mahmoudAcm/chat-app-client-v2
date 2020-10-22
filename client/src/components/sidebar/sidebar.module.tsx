@@ -15,6 +15,11 @@ const SideBar = () => {
 
         current?.classList.add("active");
         current?.classList.add("show");
+
+        const sidebarInputs = document.querySelectorAll<HTMLInputElement>('.sidebar input')! ;
+        sidebarInputs.forEach((input) => {
+            input.autocomplete = "off";    
+        });
     });
 
     return (
