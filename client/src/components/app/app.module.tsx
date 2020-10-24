@@ -4,16 +4,16 @@ import Navigation from '../navigation/navigation.module';
 import SideBar from '../sidebar/sidebar.module';
 
 const App = () => {
-    return (
-        <div className="layout">
-            <Router>
-                <Navigation />
-                <Switch>
-                    <SideBar />
-                </Switch>
-            </Router>
-        </div>
-    );
+  return (
+    <div className="layout">
+      <Router>
+        <Navigation />
+        <Switch>
+          <SideBar />
+        </Switch>
+      </Router>
+    </div>
+  );
 };
 
 export default App;

@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ChatRoom = () => {
-    return <></>;
+  return <></>;
 };
 
 export default ChatRoom;
