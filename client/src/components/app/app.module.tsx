@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import ChatRoom from '../chat/chat.module';
 import Navigation from '../navigation/navigation.module';
 import SideBar from '../sidebar/sidebar.module';
 
@@ -9,7 +10,10 @@ const App = () => {
       <Router>
         <Navigation />
         <Switch>
-          <SideBar />
+          <Route>
+            <SideBar />
+            <ChatRoom />
+          </Route>
         </Switch>
       </Router>
     </div>
