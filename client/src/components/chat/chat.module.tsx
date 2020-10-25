@@ -5,6 +5,7 @@ import ChatFooter from './footer/footer.module';
 
 export interface ChatRoomProps {
   isDisabled: boolean;
+  relationType?: 'connected' | 'disconnected';
 }
 
 const ChatRoom = () => {
