@@ -8,7 +8,7 @@ export interface ChatRoomProps {
 }
 
 const ChatRoom = () => {
-  const [isDisabled, setIsDisabled] = useState(true);
+  const [isDisabled, setIsDisabled] = useState(false);
   return (
     <div className="main">
       <div className="tab-content">
