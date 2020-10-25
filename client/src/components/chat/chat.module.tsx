@@ -1,17 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ChatHeader from './header/header.module';
 import ChatContent from './content/content.module';
 import ChatFooter from './footer/footer.module';
 
+export interface ChatRoomProps {
+  isDisabled: boolean;
+}
+
 const ChatRoom = () => {
+  const [isDisabled, setIsDisabled] = useState(true);
   return (
     <div className="main">
       <div className="tab-content">
         <div className="babble tab-pane active show">
           <div className="chat">
-            <ChatHeader />
-            <ChatContent />
-            <ChatFooter />
+            <ChatHeader isDisabled={isDisabled} />
+            <ChatContent isDisabled={isDisabled} />
+            <ChatFooter isDisabled={isDisabled} />
           </div>
         </div>
       </div>

@@ -1,6 +1,8 @@
 import React from 'react';
+import { ChatRoomProps } from '../chat.module';
 
-const Header = () => {
+const Header = ({ isDisabled }: ChatRoomProps) => {
+  const disabledClass = isDisabled ? 'disabled' : '';
   return (
     <header className="top">
       <div className="container">
@@ -25,39 +27,59 @@ const Header = () => {
               </h5>
               <span>Active now</span>
             </div>
-            <button className="btn connect d-md-block d-none" name="1">
+            <button
+              className={`btn connect d-md-block d-none ${disabledClass}`}
+              name="1"
+              disabled={isDisabled}
+            >
               <i className="material-icons md-30">phone_in_talk</i>
             </button>
-            <button className="btn connect d-md-block d-none" name="1">
+            <button
+              className={`btn connect d-md-block d-none ${disabledClass}`}
+              name="1"
+              disabled={isDisabled}
+            >
               <i className="material-icons md-36">videocam</i>
             </button>
-            <button className="btn d-md-block d-none">
+            <button
+              className={`btn d-md-block d-none ${disabledClass}`}
+              disabled={isDisabled}
+            >
               <i className="material-icons md-30">info</i>
             </button>
             <div className="dropdown">
               <button
-                className="btn"
+                className={`btn ${disabledClass}`}
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
+                disabled={isDisabled}
               >
                 <i className="material-icons md-30">more_vert</i>
               </button>
               <div className="dropdown-menu dropdown-menu-right">
-                <button className="dropdown-item connect" name="1">
+                <button
+                  className="dropdown-item connect"
+                  name="1"
+                  disabled={isDisabled}
+                >
                   <i className="material-icons">phone_in_talk</i>Voice Call
                 </button>
-                <button className="dropdown-item connect" name="1">
+                <button
+                  className="dropdown-item connect"
+                  name="1"
+                  disabled={isDisabled}
+                >
                   <i className="material-icons">videocam</i>Video Call
                 </button>
                 <hr />
-                <button className="dropdown-item">
+                <button className="dropdown-item" disabled={isDisabled}>
                   <i className="material-icons">clear</i>Clear History
                 </button>
-                <button className="dropdown-item">
+                <button className="dropdown-item" disabled={isDisabled}>
                   <i className="material-icons">block</i>Block Contact
                 </button>
-                <button className="dropdown-item">
+                <button className="dropdown-item" disabled={isDisabled}>
                   <i className="material-icons">delete</i>Delete Contact
                 </button>
               </div>

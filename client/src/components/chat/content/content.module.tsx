@@ -1,6 +1,7 @@
 import React from 'react';
+import { ChatRoomProps } from '../chat.module';
 
-const Content = () => {
+const Content = ({}: ChatRoomProps) => {
   return (
     <div className="content">
       <div className="container">
