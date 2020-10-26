@@ -57,8 +57,8 @@ const SignIn = () => {
               <div className="preference">
                 <h2>Hello, Friend!</h2>
                 <p>
-                  Enter your personal details and start your journey with ChatApp
-                  today.
+                  Enter your personal details and start your journey with
+                  ChatApp today.
                 </p>
                 <Link to="/signUp" className="btn button">
                   Sign Up
