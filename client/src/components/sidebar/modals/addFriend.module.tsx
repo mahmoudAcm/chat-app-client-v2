@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { withFormik, Form, Field } from 'formik';
+import { connect } from 'react-redux';
+import { contact, sidebarState } from '../../../store/sidebarSlice';
 
-const AddFriendModal = () => {
+const AddFriendModal = ({ username, icon }: contact) => {
   return (
     <div
       className="modal fade"
@@ -23,42 +26,45 @@ const AddFriendModal = () => {
             </button>
           </div>
           <div className="content">
-            <form>
-              <div className="form-group">
-                <label htmlFor="user">Username:</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="user"
-                  placeholder="Add recipient..."
-                  required
-                />
-                <div className="user" id="contact">
-                  <img
-                    className="avatar-sm"
-                    src="dist/img/avatars/avatar-female-5.jpg"
-                    alt="avatar"
+            <Form>
+              {username ? (
+                <div className="form-group">
+                  <label htmlFor="user">Username:</label>
+                  <Field
+                    type="text"
+                    className="form-control"
+                    id="user"
+                    placeholder="Add recipient..."
+                    disabled={true}
                   />
-                  <h5>Keith Morris</h5>
-                  <button className="btn">
-                    <i className="material-icons">close</i>
-                  </button>
+                  <div className="user" id="contact">
+                    <img
+                      className="avatar-sm"
+                      src={icon || '/dist/img/avatar.png'}
+                      alt="avatar"
+                    />
+                    <h5>{username}</h5>
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <h2 className='text-center p-5 text-danger'>Please select user first!</h2>
+              )}
               <div className="form-group">
                 <label htmlFor="welcome">Message:</label>
-                <textarea
+                <Field
+                  as="textarea"
                   className="text-control"
                   id="welcome"
                   placeholder="Send your welcome message..."
+                  name="message"
                 >
                   Hi Keith, I'd like to add you as a contact.
-                </textarea>
+                </Field>
               </div>
               <button type="submit" className="btn button w-100">
                 Send Friend Request
               </button>
-            </form>
+            </Form>
           </div>
         </div>
       </div>
@@ -66,4 +72,23 @@ const AddFriendModal = () => {
   );
 };
 
-export default AddFriendModal;
+const mapStateToProps = (state: any) => {
+  const { contact }: sidebarState = state.sidebar;
+  return {
+    ...contact,
+  };
+};
+
+export default connect(mapStateToProps)(
+  withFormik({
+    mapPropsToValues({ message }: any) {
+      return {
+        message: message || '',
+      };
+    },
+    handleSubmit(values, { props }) {
+      if(!props.username) return;
+      console.log(values, props);
+    },
+  })(AddFriendModal),
+);

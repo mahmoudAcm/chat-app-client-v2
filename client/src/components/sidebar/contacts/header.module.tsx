@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { createRef, useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
+import { searchForContacts } from './contacts.controller';
+
 
 const ContactHeader = () => {
   return (
@@ -6,9 +9,10 @@ const ContactHeader = () => {
       <div className="search">
         <form className="form-inline position-relative">
           <input
-            type="search"
+            type="text"
             className="form-control"
             placeholder="Search for people..."
+            onInput={searchForContacts}
           />
           <button type="button" className="btn btn-link loop">
             <i className="material-icons">search</i>
@@ -23,27 +27,36 @@ const ContactHeader = () => {
         </button>
       </div>
       <div className="list-group sort">
-        <button
-          className="btn filterMembersBtn active show"
-          data-toggle="list"
-          data-filter="all"
+        <NavLink
+          to="/contacts"
+          className="btn filterMembersBtn"
+          isActive={(match, { search }) => {
+            return "" === search;
+          }}
+          activeClassName="active show"
         >
           All
-        </button>
-        <button
+        </NavLink>
+        <NavLink
+          to="/contacts?filter=online"
           className="btn filterMembersBtn"
-          data-toggle="list"
-          data-filter="online"
+          isActive={(match, { search }) => {
+            return "?filter=online" === search;
+          }}
+          activeClassName="active show"
         >
           Online
-        </button>
-        <button
+        </NavLink>
+        <NavLink
+        to="/contacts?filter=offline"
           className="btn filterMembersBtn"
-          data-toggle="list"
-          data-filter="offline"
+          isActive={(match, { search }) => {
+            return "?filter=offline" === search;
+          }}
+          activeClassName="active show"
         >
           Offline
-        </button>
+        </NavLink>
       </div>
     </header>
   );

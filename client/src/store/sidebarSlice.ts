@@ -6,6 +6,8 @@ export interface contact {
   firstname: string;
   icon?: string;
   location: string;
+  data?: contact;
+  online?: boolean;
 }
 
 export interface sidebarState {
@@ -31,6 +33,7 @@ const initialState: sidebarState = {
     },
     {
       id: '3',
+      online: true,
       username: 'Mahmoud Tarek',
       firstname: 'Mahmoud',
       location: 'Cairo, Tanta',
