@@ -47,7 +47,8 @@ const LoadComponent = connect((state: any) => {
         {
           duration: isLoading ? 1500 : 700,
           delay: isLoading ? 500 : 0,
-          endDelay: 250,
+          endDelay: 1000,
+          easing: 'ease-out',
         },
       );
 
