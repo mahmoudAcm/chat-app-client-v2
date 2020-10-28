@@ -1,0 +1,13 @@
+:root {
+  --loader-color: var(--blue);
+  --size: 3px;
+}
+
+.loader__element {
+	height: var(--size);
+	background: var(--loader-color);
+  overflow: hidden;
+  position: fixed;
+  top: 0; left: 0;
+  z-index: 100000;
+}
