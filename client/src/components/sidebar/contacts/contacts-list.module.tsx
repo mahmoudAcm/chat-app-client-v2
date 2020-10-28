@@ -2,7 +2,14 @@ import React from 'react';
 import { contact } from '../../../store/sidebarSlice';
 import { selectMember } from './contacts.controller';
 
-const Member = ({ username, icon, firstname, location, data, online }: contact) => {
+const Member = ({
+  username,
+  icon,
+  firstname,
+  location,
+  data,
+  online,
+}: contact) => {
   return (
     <a
       href="#"
@@ -19,7 +26,9 @@ const Member = ({ username, icon, firstname, location, data, online }: contact) 
         alt="avatar"
       />
       <div className="status">
-        <i className={`material-icons ${online? "online" : "offline"}`}>fiber_manual_record</i>
+        <i className={`material-icons ${online ? 'online' : 'offline'}`}>
+          fiber_manual_record
+        </i>
       </div>
       <div className="data">
         <h5>{username}</h5>
@@ -32,19 +41,27 @@ const Member = ({ username, icon, firstname, location, data, online }: contact) 
   );
 };
 
-const ContactsList = ({ list, filter }: { list: Array<contact>, filter: any }) => {
+const ContactsList = ({
+  list,
+  filter,
+}: {
+  list: Array<contact>;
+  filter: any;
+}) => {
   return (
     <div className="contacts">
       <h1>Contacts</h1>
       <div className="list-group" role="tablist">
-        {list.filter(({online}) => {
-	       if(!filter) return true;
-		   if(filter === "online" && online) return true;	
-		   if(filter === "offline" && !online) return true;	
-		   return false;
-		}).map(({ id, ...rest }) => {
-          return <Member {...rest} key={id} data={rest} />;
-        })}
+        {list
+          .filter(({ online }) => {
+            if (!filter) return true;
+            if (filter === 'online' && online) return true;
+            if (filter === 'offline' && !online) return true;
+            return false;
+          })
+          .map(({ id, ...rest }) => {
+            return <Member {...rest} key={id} data={rest} />;
+          })}
       </div>
     </div>
   );

@@ -47,7 +47,9 @@ const AddFriendModal = ({ username, icon }: contact) => {
                   </div>
                 </div>
               ) : (
-                <h2 className='text-center p-5 text-danger'>Please select user first!</h2>
+                <h2 className="text-center p-5 text-danger">
+                  Please select user first!
+                </h2>
               )}
               <div className="form-group">
                 <label htmlFor="welcome">Message:</label>
@@ -87,7 +89,7 @@ export default connect(mapStateToProps)(
       };
     },
     handleSubmit(values, { props }) {
-      if(!props.username) return;
+      if (!props.username) return;
       console.log(values, props);
     },
   })(AddFriendModal),

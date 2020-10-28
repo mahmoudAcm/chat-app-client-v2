@@ -18,6 +18,5 @@ export const selectMember = (member: contact) => {
  * @param ev the event target
  */
 export const searchForContacts = (ev: any) => {
-   const target: HTMLInputElement = ev.target;
-   
+  const target: HTMLInputElement = ev.target;
 };
