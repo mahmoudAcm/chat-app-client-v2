@@ -1,55 +1,55 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export interface contact {
+export interface sidebar {
   id?: string;
   username: string;
   firstname: string;
+  online?: boolean;
   icon?: string;
+}
+
+export interface contact extends sidebar {
   location: string;
   data?: contact;
-  online?: boolean;
+}
+
+export interface discussion extends sidebar {
+  type: 'connected' | 'disconnected';
 }
 
 export interface sidebarState {
   contacts: Array<contact>;
   contact?: contact;
+  discussions: Array<discussion>;
+  discussion?: discussion;
   isLoading: boolean;
   hasNext: boolean;
 }
 
 const initialState: sidebarState = {
-  contacts: [
-    {
-      id: '1',
-      username: 'Mahmoud Tarek',
-      firstname: 'Mahmoud',
-      location: 'Cairo, Tanta',
-    },
-    {
-      id: '2',
-      username: 'Mahmoud Tarek',
-      firstname: 'Mahmoud',
-      location: 'Cairo, Tanta',
-    },
-    {
-      id: '3',
-      online: true,
-      username: 'Mahmoud Tarek',
-      firstname: 'Mahmoud',
-      location: 'Cairo, Tanta',
-    },
-  ],
+  contacts: [],
+  discussions: [],
   isLoading: false,
   hasNext: false,
 };
 
 for (let i = 0; i < 50; i++) {
   initialState.contacts.push({
-    id: i + '3',
-    online: Math.random() * 1 ? true : false,
+    id: i + '',
+    online: i & 1 ? true : false,
     username: 'Mahmoud Tarek',
     firstname: 'Mahmoud',
     location: 'Cairo, Tanta',
+  });
+}
+
+for (let i = 0; i < 50; i++) {
+  initialState.discussions.push({
+    id: i + '',
+    online: Math.random() * 1 ? true : false,
+    username: 'Mahmoud Tarek',
+    firstname: 'Mahmoud',
+    type: i & 1 ? "disconnected": "connected"
   });
 }
 
