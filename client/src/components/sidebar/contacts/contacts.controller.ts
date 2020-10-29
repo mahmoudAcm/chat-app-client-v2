@@ -1,13 +1,15 @@
 import { store } from '../../../store';
 import { contact, setContact } from '../../../store/sidebarSlice';
 
+/* Global variables */
+const { dispatch } = store;
+
 /**
  * @description it sets the sidebar contact item
  * @param member the user data
  * @returns eventHandler
  */
 export const selectMember = (member: contact) => {
-  const { dispatch } = store;
   return () => {
     dispatch(setContact(member));
   };

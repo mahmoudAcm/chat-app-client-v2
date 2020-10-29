@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { splitArrayIntoIntervals } from '../../../helpers/loadArray';
 import { contact } from '../../../store/sidebarSlice';
 import { selectMember } from './contacts.controller';
 
@@ -48,20 +49,35 @@ const ContactsList = ({
   list: Array<contact>;
   filter: any;
 }) => {
+  const [members, setMembers] = useState<typeof list>([]);
+  let interval: any = null;
+
+  useEffect(() => {
+    interval = splitArrayIntoIntervals(
+      list,
+      setMembers,
+      10,
+      700,
+      ({ online }: contact) => {
+        if (!filter) return true;
+        if (online && filter === 'online') return true;
+        if (!online && filter === 'offline') return true;
+        return false;
+      },
+    );
+    return () => {
+      clearInterval(interval);
+      setMembers([]);
+    };
+  }, [filter]);
+
   return (
     <div className="contacts">
       <h1>Contacts</h1>
       <div className="list-group" role="tablist">
-        {list
-          .filter(({ online }) => {
-            if (!filter) return true;
-            if (filter === 'online' && online) return true;
-            if (filter === 'offline' && !online) return true;
-            return false;
-          })
-          .map(({ id, ...rest }) => {
-            return <Member {...rest} key={id} data={rest} />;
-          })}
+        {members.map(({ id, ...rest }) => {
+          return <Member {...rest} data={rest} key={id} />;
+        })}
       </div>
     </div>
   );

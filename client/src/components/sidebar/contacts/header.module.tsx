@@ -1,4 +1,4 @@
-import React, { createRef, useEffect } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { searchForContacts } from './contacts.controller';
 
@@ -30,7 +30,8 @@ const ContactHeader = () => {
           to="/contacts"
           className="btn filterMembersBtn"
           isActive={(match, { search }) => {
-            return '' === search;
+            const is = '' === search;
+            return is;
           }}
           activeClassName="active show"
         >
@@ -40,7 +41,8 @@ const ContactHeader = () => {
           to="/contacts?filter=online"
           className="btn filterMembersBtn"
           isActive={(match, { search }) => {
-            return '?filter=online' === search;
+            const is = '?filter=online' === search;
+            return is;
           }}
           activeClassName="active show"
         >
@@ -50,7 +52,8 @@ const ContactHeader = () => {
           to="/contacts?filter=offline"
           className="btn filterMembersBtn"
           isActive={(match, { search }) => {
-            return '?filter=offline' === search;
+            const is = '?filter=offline' === search;
+            return is;
           }}
           activeClassName="active show"
         >

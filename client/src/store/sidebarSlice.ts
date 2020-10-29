@@ -38,16 +38,20 @@ const initialState: sidebarState = {
       firstname: 'Mahmoud',
       location: 'Cairo, Tanta',
     },
-    {
-      id: '4',
-      username: 'Mahmoud Tarek',
-      firstname: 'Mahmoud',
-      location: 'Cairo, Tanta',
-    },
   ],
   isLoading: false,
   hasNext: false,
 };
+
+for (let i = 0; i < 50; i++) {
+  initialState.contacts.push({
+    id: i + '3',
+    online: Math.random() * 1 ? true : false,
+    username: 'Mahmoud Tarek',
+    firstname: 'Mahmoud',
+    location: 'Cairo, Tanta',
+  });
+}
 
 const sidebar = createSlice({
   name: 'sidebar',
@@ -57,7 +61,7 @@ const sidebar = createSlice({
       state.isLoading = action.payload;
     },
     loadContacts(state, action) {
-      state.contacts = [state.contacts, action.payload];
+      state.contacts = [...state.contacts, ...action.payload];
     },
     setHasNext(state, action) {
       state.hasNext = action.payload;
