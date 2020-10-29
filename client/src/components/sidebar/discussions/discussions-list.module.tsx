@@ -61,7 +61,7 @@ const DiscussionsList = ({ list }: { list: Array<discussion> }) => {
       <h1>Discussions</h1>
       <div className="list-group" id="chats" role="tablist">
         {
-          chats.map(({...rest}) => <Discussion {...rest}/>)
+          chats.map(({id, ...rest}) => <Discussion {...rest} key={id}/>)
         }
       </div>
     </div>
