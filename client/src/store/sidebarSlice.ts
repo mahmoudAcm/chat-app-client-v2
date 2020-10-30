@@ -49,7 +49,7 @@ for (let i = 0; i < 50; i++) {
     online: Math.random() * 1 ? true : false,
     username: 'Mahmoud Tarek',
     firstname: 'Mahmoud',
-    type: i & 1 ? "disconnected": "connected"
+    type: i & 1 ? 'disconnected' : 'connected',
   });
 }
 

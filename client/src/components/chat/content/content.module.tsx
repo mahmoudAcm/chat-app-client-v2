@@ -1,7 +1,12 @@
 import React from 'react';
-import { ChatRoomProps } from '../chat.module';
+import { chatState } from '../../../store/chatSlice';
+import { chatRoomProps } from '../chat.module';
 
-const Content = ({}: ChatRoomProps) => {
+const Content = ({
+  messages,
+  isLoading,
+  hasNext,
+}: chatRoomProps & chatState) => {
   return (
     <div className="content">
       <div className="container">

@@ -1,7 +1,10 @@
 import React from 'react';
-import { ChatRoomProps } from '../chat.module';
+import { chatState } from '../../../store/chatSlice';
+import { chatRoomProps } from '../chat.module';
 
-const Header = ({ isDisabled }: ChatRoomProps) => {
+const Header = (props: any) => {
+  const { isDisabled, details }: chatRoomProps & chatState = props;
+  const { firstname, icon, username, online } = details!;
   const disabledClass = isDisabled ? 'disabled' : '';
   return (
     <header className="top">
@@ -11,21 +14,23 @@ const Header = ({ isDisabled }: ChatRoomProps) => {
             <a href="#">
               <img
                 className="avatar-md"
-                src="dist/img/avatars/avatar-female-5.jpg"
+                src={icon || '/dist/img/avatar.png'}
                 data-toggle="tooltip"
                 data-placement="top"
-                title="Keith"
+                title={firstname}
                 alt="avatar"
               />
             </a>
             <div className="status">
-              <i className="material-icons online">fiber_manual_record</i>
+              <i className={`material-icons ${online ? 'online' : 'offline'}`}>
+                fiber_manual_record
+              </i>
             </div>
             <div className="data">
               <h5>
-                <a href="#">Keith Morris</a>
+                <a href="#">{username}</a>
               </h5>
-              <span>Active now</span>
+              <span>{online ? 'Active now' : 'Inactive'}</span>
             </div>
             <button
               className={`btn d-md-block d-none ${disabledClass}`}

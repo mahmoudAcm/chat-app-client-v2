@@ -7,7 +7,7 @@ interface discussionTypeProps {
 }
 
 const DiscussionType = ({ type }: discussionTypeProps) => {
-  if(type === "connected") return <></>;
+  if (type === 'connected') return <></>;
   return (
     <div className={`new ${type === 'disconnected' ? 'bg-gray' : ''}`}>
       {type === 'disconnected' ? <span>?</span> : <></>}
@@ -51,18 +51,18 @@ const DiscussionsList = ({ list }: { list: Array<discussion> }) => {
   useEffect(() => {
     interval = splitArrayIntoIntervals(list, setChats, 20, 400);
     return () => {
-       clearInterval(interval);
-       setChats([]);
-    }
+      clearInterval(interval);
+      setChats([]);
+    };
   }, []);
 
   return (
     <div className="discussions">
       <h1>Discussions</h1>
       <div className="list-group" id="chats" role="tablist">
-        {
-          chats.map(({id, ...rest}) => <Discussion {...rest} key={id}/>)
-        }
+        {chats.map(({ id, ...rest }) => (
+          <Discussion {...rest} key={id} />
+        ))}
       </div>
     </div>
   );

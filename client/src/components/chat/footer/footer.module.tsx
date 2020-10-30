@@ -1,7 +1,7 @@
 import React from 'react';
-import { ChatRoomProps } from '../chat.module';
+import { chatRoomProps } from '../chat.module';
 
-const Footer = ({ isDisabled }: ChatRoomProps) => {
+const Footer = ({ isDisabled }: chatRoomProps) => {
   const disabledClass = isDisabled ? 'disabled' : '';
 
   const placeholder = !isDisabled
