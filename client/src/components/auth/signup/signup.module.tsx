@@ -1,7 +1,21 @@
-import React from 'react';
+import React, { createRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { withFormik, Form, Field, FormikState } from 'formik';
+import getLocation from '../../../helpers/userLocation';
 
-const SignUp = () => {
+const ImageAvatar = createRef<HTMLImageElement>();
+const userLocation = createRef<HTMLInputElement>();
+
+const SignUp = ({ isSubmitting }: FormikState<any>) => {
+  useEffect(() => {
+    (async () => {
+      try {
+        const details = await getLocation();
+        userLocation.current!.value = `${details.country}, ${details.city}`;
+      } catch (error) {}
+    })();
+  }, []);
+
   return (
     <div className="start">
       <div className="layout">
@@ -11,12 +25,47 @@ const SignUp = () => {
               <div className="col-md-12">
                 <div className="content">
                   <h1>Create Account</h1>
-                  <form className="signup">
+                  <Form className="signup">
+                    <input type="text" ref={userLocation} hidden />
+                    <div className="form-group">
+                      <img
+                        ref={ImageAvatar}
+                        className="rounded my-3"
+                        style={{ maxWidth: '225px', maxHeight: '200px' }}
+                      />
+                      <div className="custom-file">
+                        <label
+                          className="custom-file-label"
+                          htmlFor="validatedCustomFile"
+                        >
+                          Choose avatar...
+                        </label>
+                        <input
+                          id="validatedCustomFile"
+                          type="file"
+                          className="custom-file-input"
+                          onChange={(e: any) => {
+                            try {
+                              e.persist();
+                              const files = e.target.files;
+                              const blob = files![0];
+                              var reader = new FileReader();
+                              reader.readAsDataURL(blob);
+                              reader.onloadend = function () {
+                                var base64data = reader.result;
+                                ImageAvatar.current!.src = base64data!.toString();
+                              };
+                            } catch (e) {}
+                          }}
+                          required
+                        />
+                      </div>
+                    </div>
                     <div className="form-parent">
                       <div className="form-group">
-                        <input
+                        <Field
                           type="text"
-                          id="inputName"
+                          name="username"
                           className="form-control"
                           placeholder="Username"
                           required
@@ -26,9 +75,9 @@ const SignUp = () => {
                         </button>
                       </div>
                       <div className="form-group">
-                        <input
+                        <Field
                           type="email"
-                          id="inputEmail"
+                          name="email"
                           className="form-control"
                           placeholder="Email Address"
                           required
@@ -39,9 +88,9 @@ const SignUp = () => {
                       </div>
                     </div>
                     <div className="form-group">
-                      <input
+                      <Field
                         type="password"
-                        id="inputPassword"
+                        name="password"
                         className="form-control"
                         placeholder="Password"
                         required
@@ -50,15 +99,19 @@ const SignUp = () => {
                         <i className="material-icons">lock_outline</i>
                       </button>
                     </div>
-                    <button type="submit" className="btn button">
+                    <button
+                      type="submit"
+                      className="btn button"
+                      disabled={isSubmitting}
+                    >
                       Sign Up
                     </button>
                     <div className="callout">
                       <span>
-                        Already a member? <a href="sign-in.html">Sign In</a>
+                        Already a member? <Link to="/signIn">Sign In</Link>
                       </span>
                     </div>
-                  </form>
+                  </Form>
                 </div>
               </div>
             </div>
@@ -85,4 +138,16 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default withFormik({
+  mapPropsToValues({ email, password, username }: any) {
+    return {
+      email: email || '',
+      password: password || '',
+      username: username || '',
+    };
+  },
+  handleSubmit(values, { resetForm, setSubmitting }) {
+    console.log(values, userLocation.current!.value);
+    setSubmitting(false);
+  },
+})(SignUp);

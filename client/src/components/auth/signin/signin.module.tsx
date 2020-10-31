@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { withFormik, Form, Field, FormikState } from 'formik';
 
-const SignIn = () => {
+const SignIn = ({ isSubmitting }: FormikState<any>) => {
   return (
     <div className="start">
       <div className="layout">
@@ -11,11 +12,11 @@ const SignIn = () => {
               <div className="col-md-12">
                 <div className="content">
                   <h1>Sign in to ChatApp</h1>
-                  <form>
+                  <Form>
                     <div className="form-group">
-                      <input
+                      <Field
                         type="email"
-                        id="inputEmail"
+                        name="email"
                         className="form-control"
                         placeholder="Email Address"
                         required
@@ -25,9 +26,9 @@ const SignIn = () => {
                       </button>
                     </div>
                     <div className="form-group">
-                      <input
+                      <Field
                         type="password"
-                        id="inputPassword"
+                        name="password"
                         className="form-control"
                         placeholder="Password"
                         required
@@ -36,16 +37,20 @@ const SignIn = () => {
                         <i className="material-icons">lock_outline</i>
                       </button>
                     </div>
-                    <button type="submit" className="btn button">
+                    <button
+                      type="submit"
+                      className="btn button"
+                      disabled={isSubmitting}
+                    >
                       Sign In
                     </button>
                     <div className="callout">
                       <span>
                         Don't have account?
-                        <a href="sign-up.html">Create Account</a>
+                        <Link to="/signUp">Sign Up</Link>
                       </span>
                     </div>
-                  </form>
+                  </Form>
                 </div>
               </div>
             </div>
@@ -72,4 +77,15 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default withFormik({
+  mapPropsToValues({ email, password }: any) {
+    return {
+      email: email || '',
+      password: password || '',
+    };
+  },
+  handleSubmit(values, { resetForm, setSubmitting }) {
+    console.log(values);
+    setSubmitting(false);
+  },
+})(SignIn);
