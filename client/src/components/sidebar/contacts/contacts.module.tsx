@@ -30,7 +30,7 @@ const Contacts = (props: any) => {
       ) : (
         <>
           <ContactsList list={contacts} filter={query.filter} />
-          {hasNext ? <GetMore text="find more" click={() => {}} /> : <></>}
+          {hasNext ? <GetMore text="find more" request={async () => {}} /> : <></>}
         </>
       )}
     </>
