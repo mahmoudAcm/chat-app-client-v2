@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 import queryString from 'query-string';
 import { sidebarState } from '../../../store/sidebarSlice';
-import GetMore from '../find-more.module';
+import GetMore from '../../loadMoreData.module';
 import ContactsList from './contacts-list.module';
 import ContactHeader from './header.module';
 

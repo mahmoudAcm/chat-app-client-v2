@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { sidebarState } from '../../../store/sidebarSlice';
-import GetMore from '../find-more.module';
+import GetMore from '../../loadMoreData.module';
 import DiscussionsList from './discussions-list.module';
 
 const Discussions = (props: any) => {
