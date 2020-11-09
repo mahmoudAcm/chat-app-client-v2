@@ -39,16 +39,14 @@ const LoadComponent = connect((state: any) => {
       const animataion = loader.current!.animate(
         [
           { width: '0%' },
-          { width: '25' },
           { width: '50%' },
-          { width: '75%' },
           { width: '100%' },
         ],
         {
           duration: isLoading ? 1500 : 700,
           delay: isLoading ? 500 : 0,
           endDelay: 1000,
-          easing: 'ease-out',
+          easing: 'linear',
         },
       );
 
@@ -66,7 +64,7 @@ const LoadComponent = connect((state: any) => {
       };
 
       return () => {
-        for (let i = 1; i < 10; i++) {
+        for (let i = 0; i < 15; i++) {
           clearTimeout(i);
         }
       };
