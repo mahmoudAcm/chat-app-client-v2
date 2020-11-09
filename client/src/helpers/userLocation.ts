@@ -1,5 +1,3 @@
-// es-5 style for simlicity and no use of babel
-
 /**
  * @description cheeks if navigator is supported and gets lat and long
  * @returns a promise with coords
