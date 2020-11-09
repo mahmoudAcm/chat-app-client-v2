@@ -33,26 +33,6 @@ const initialState: sidebarState = {
   hasNext: false,
 };
 
-for (let i = 0; i < 50; i++) {
-  initialState.contacts.push({
-    id: i + '',
-    online: i & 1 ? true : false,
-    username: 'Mahmoud Tarek',
-    firstname: 'Mahmoud',
-    location: 'Cairo, Tanta',
-  });
-}
-
-for (let i = 0; i < 50; i++) {
-  initialState.discussions.push({
-    id: i + '',
-    online: Math.random() * 1 ? true : false,
-    username: 'Mahmoud Tarek',
-    firstname: 'Mahmoud',
-    type: i & 1 ? 'disconnected' : 'connected',
-  });
-}
-
 const sidebar = createSlice({
   name: 'sidebar',
   initialState,
