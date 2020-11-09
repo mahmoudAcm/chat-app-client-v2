@@ -6,12 +6,19 @@ import DiscussionsList from './discussions-list.module';
 
 const Discussions = (props: any) => {
   const { isLoading, hasNext, discussions }: sidebarState = props;
+  const message =
+    'their is no discussions for now please search for people to start discussions';
   return (
     <>
-      {/* <DiscussionsHeader /> */}
       {isLoading ? <p className="text-center">loading...</p> : <></>}
-      <DiscussionsList list={discussions} />
-      {hasNext ? <GetMore text="Get more" click={() => {}} /> : <></>}
+      {discussions.length == 0 ? (
+        <p className="text-center"> {message} </p>
+      ) : (
+        <>
+          <DiscussionsList list={discussions} />
+          {hasNext ? <GetMore text="Get more" click={() => {}} /> : <></>}
+        </>
+      )}
     </>
   );
 };
