@@ -101,7 +101,7 @@ const Main = () => {
     <div className="layout">
       <Navigation />
       <SideBar />
-      <ChatRoom />
+      <LoadComponentRoute path='/discussions/:userId' component={ChatRoom} role='user' />
     </div>
   );
 };
