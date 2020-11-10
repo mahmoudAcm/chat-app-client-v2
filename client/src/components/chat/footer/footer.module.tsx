@@ -33,12 +33,6 @@ const Footer = ({ isDisabled }: chatRoomProps) => {
               <i className="material-icons">send</i>
             </button>
           </form>
-          <label>
-            <input type="file" disabled={isDisabled} />
-            <span className={`btn attach d-sm-block d-none ${disabledClass}`}>
-              <i className="material-icons">attach_file</i>
-            </span>
-          </label>
         </div>
       </div>
     </footer>
