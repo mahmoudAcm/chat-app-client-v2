@@ -1,0 +1,9 @@
+.emojiPicker {
+    position: absolute;
+    top: -350px;
+    z-index: 100000;
+}
+
+.emojiPicker.fade {
+    display: none;
+}

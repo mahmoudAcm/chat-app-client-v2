@@ -16,7 +16,11 @@ const Discussions = (props: any) => {
       ) : (
         <>
           <DiscussionsList list={discussions} />
-          {hasNext ? <GetMore text="Get more" request={async () => {}} /> : <></>}
+          {hasNext ? (
+            <GetMore text="Get more" request={async () => {}} />
+          ) : (
+            <></>
+          )}
         </>
       )}
     </>

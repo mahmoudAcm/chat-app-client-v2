@@ -37,11 +37,7 @@ const LoadComponent = connect((state: any) => {
 
     useEffect(() => {
       const animataion = loader.current!.animate(
-        [
-          { width: '0%' },
-          { width: '50%' },
-          { width: '100%' },
-        ],
+        [{ width: '0%' }, { width: '50%' }, { width: '100%' }],
         {
           duration: isLoading ? 1500 : 700,
           delay: isLoading ? 500 : 0,
@@ -101,7 +97,11 @@ const Main = () => {
     <div className="layout">
       <Navigation />
       <SideBar />
-      <LoadComponentRoute path='/discussions/:roomId' component={ChatRoom} role='user' />
+      <LoadComponentRoute
+        path="/discussions/:roomId"
+        component={ChatRoom}
+        role="user"
+      />
     </div>
   );
 };
