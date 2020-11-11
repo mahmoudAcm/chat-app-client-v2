@@ -5,11 +5,11 @@ const { round, floor } = Math;
  * @returns boolean
  */
 const isISOString = (date: any) => {
-    const before = new Date(date).getTime();
-    const after = new Date(new Date(date).toISOString()).getTime();
-    //if before and after are the same then the date in ISO format
-    return !(before - after);
-}
+  const before = new Date(date).getTime();
+  const after = new Date(new Date(date).toISOString()).getTime();
+  //if before and after are the same then the date in ISO format
+  return !(before - after);
+};
 
 /**
  * @description transforms date to ISO format
@@ -17,10 +17,10 @@ const isISOString = (date: any) => {
  * @returns ISO Date
  */
 export const toISOString = (date: string) => {
-    if(isISOString(date)){
-       return date;
-    }
-    return new Date(date).toISOString();
+  if (isISOString(date)) {
+    return date;
+  }
+  return new Date(date).toISOString();
 };
 
 /**
@@ -28,7 +28,7 @@ export const toISOString = (date: string) => {
  * @returns mintues
  */
 export const toMinutes = (date: number) => {
-    return floor(date / 60);
+  return floor(date / 60);
 };
 
 /**
@@ -36,7 +36,7 @@ export const toMinutes = (date: number) => {
  * @returns hours
  */
 export const toHours = (date: number) => {
-    return floor(date / (60 * 60));
+  return floor(date / (60 * 60));
 };
 
 /**
@@ -44,23 +44,28 @@ export const toHours = (date: number) => {
  * @returns days
  */
 export const toDays = (date: number) => {
-    return floor(date / (24 * 60 * 60));
-}
+  return floor(date / (24 * 60 * 60));
+};
 
 /**
  * @description transforms a date in ISO format to an object with this keys -> dayName, day, month, year
  * @param date the date in ISO format
  */
 export const toDateObject = (date: string) => {
-   let dateArray = new Date(date).toDateString().split(" ");
-   const mapArray = ["dayName", "month", "day", "year"];
-   let count = 0 ;
-   const object: Partial<{dayName: string; day: string; month: string; year: string}> = {};
-   dateArray.filter((value) => {
-      //@ts-ignore
-      object[mapArray[count++]] = value;
-   });
-   return object;
+  let dateArray = new Date(date).toDateString().split(' ');
+  const mapArray = ['dayName', 'month', 'day', 'year'];
+  let count = 0;
+  const object: Partial<{
+    dayName: string;
+    day: string;
+    month: string;
+    year: string;
+  }> = {};
+  dateArray.filter((value) => {
+    //@ts-ignore
+    object[mapArray[count++]] = value;
+  });
+  return object;
 };
 
 /**
@@ -68,7 +73,7 @@ export const toDateObject = (date: string) => {
  * @returns ISO format of the date
  */
 export const getCurrentDate = () => {
-    return new Date(Date.now()).toISOString();
+  return new Date(Date.now()).toISOString();
 };
 
 /**
@@ -76,7 +81,7 @@ export const getCurrentDate = () => {
  * @returns seconds
  */
 export const getElapsedTime = (createdAt: string) => {
-    const first = round(new Date(getCurrentDate()).getTime() / 1000);
-    const second = round(new Date(toISOString(createdAt)).getTime() / 1000);
-    return first - second;
+  const first = round(new Date(getCurrentDate()).getTime() / 1000);
+  const second = round(new Date(toISOString(createdAt)).getTime() / 1000);
+  return first - second;
 };
