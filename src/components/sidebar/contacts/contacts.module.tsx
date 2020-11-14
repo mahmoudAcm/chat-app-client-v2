@@ -24,16 +24,21 @@ const Contacts = (props: any) => {
   return (
     <>
       <ContactHeader />
-      {isLoading ? <p className="text-center">loading...</p> : <></>}
-      {contacts.length === 0 ? (
-        <p className="text-center"> {message} </p>
+      {isLoading.contact ? (
+        <p className="text-center">loading...</p>
       ) : (
         <>
-          <ContactsList list={contacts} filter={query.filter} />
-          {hasNext ? (
-            <GetMore text="find more" request={async () => {}} />
+          {contacts.length === 0 ? (
+            <p className="text-center"> {message} </p>
           ) : (
-            <></>
+            <>
+              <ContactsList list={contacts} filter={query.filter} />
+              {hasNext.contact ? (
+                <GetMore text="find more" request={async () => {}} />
+              ) : (
+                <></>
+              )}
+            </>
           )}
         </>
       )}

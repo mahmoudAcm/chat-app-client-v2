@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { splitArrayIntoIntervals } from '../../../helpers/loadArray';
+import { NavLink } from 'react-router-dom';
 import { discussion } from '../../../store/sidebarSlice';
+import { getElapsedTime } from '../../../helpers/date';
+import { mapSecondsToString } from './discussions.controller';
 
 interface discussionTypeProps {
   type: 'disconnected' | 'connected';
@@ -15,21 +17,38 @@ const DiscussionType = ({ type }: discussionTypeProps) => {
   );
 };
 
-const Discussion = ({ type }: discussion) => {
+const Discussion = ({
+  type,
+  firstname,
+  username,
+  message,
+  updatedAt,
+  icon,
+  room,
+}: discussion) => {
+  const [elapsed, setElapsed] = useState<string>();
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const time = getElapsedTime(updatedAt!);
+      setElapsed(mapSecondsToString(time, updatedAt));
+    }, 1000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
   return (
-    <a
-      href="#"
+    <NavLink
+      to={`/discussions/${room}`}
       className="filterDiscussions single"
+      activeClassName="active"
       id="list-chat-list"
-      data-toggle="list"
-      role="tab"
     >
       <img
         className="avatar-md"
-        src="/dist/img/avatar.png"
+        src={icon || '/dist/img/avatar.png'}
         data-toggle="tooltip"
         data-placement="top"
-        title="Janette"
+        title={firstname}
         alt="avatar"
       />
       <div className="status">
@@ -37,30 +56,22 @@ const Discussion = ({ type }: discussion) => {
       </div>
       <DiscussionType type={type} />
       <div className="data">
-        <h5>Janette Dalton</h5>
-        <span>Mon</span>
-        <p>A new feature has been updated to your account. Check it out...</p>
+        <h5>{username}</h5>
+        <span>
+          {elapsed || mapSecondsToString(getElapsedTime(updatedAt!), updatedAt)}
+        </span>
+        <p>{message}</p>
       </div>
-    </a>
+    </NavLink>
   );
 };
 
 const DiscussionsList = ({ list }: { list: Array<discussion> }) => {
-  const [chats, setChats] = useState<typeof list>([]);
-  let interval: any = null;
-  useEffect(() => {
-    interval = splitArrayIntoIntervals(list, setChats, 20, 400);
-    return () => {
-      clearInterval(interval);
-      setChats([]);
-    };
-  }, []);
-
   return (
     <div className="discussions">
       <h1>Discussions</h1>
       <div className="list-group" id="chats" role="tablist">
-        {chats.map(({ id, ...rest }) => (
+        {list.map(({ id, ...rest }) => (
           <Discussion {...rest} key={id} />
         ))}
       </div>

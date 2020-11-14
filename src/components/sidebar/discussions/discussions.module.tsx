@@ -10,16 +10,21 @@ const Discussions = (props: any) => {
     'their is no discussions for now please search for people to start discussions';
   return (
     <>
-      {isLoading ? <p className="text-center">loading...</p> : <></>}
-      {discussions.length == 0 ? (
-        <p className="text-center"> {message} </p>
+      {isLoading.discussion ? (
+        <p className="text-center">loading...</p>
       ) : (
         <>
-          <DiscussionsList list={discussions} />
-          {hasNext ? (
-            <GetMore text="Get more" request={async () => {}} />
+          {discussions.length == 0 ? (
+            <p className="text-center"> {message} </p>
           ) : (
-            <></>
+            <>
+              <DiscussionsList list={discussions} />
+              {hasNext.discussion ? (
+                <GetMore text="Get more" request={async () => {}} />
+              ) : (
+                <></>
+              )}
+            </>
           )}
         </>
       )}

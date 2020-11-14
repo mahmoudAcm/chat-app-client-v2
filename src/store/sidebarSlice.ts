@@ -2,10 +2,10 @@ import { createSlice } from '@reduxjs/toolkit';
 
 export interface sidebar {
   id?: string;
-  username: string;
-  firstname: string;
   online?: boolean;
   icon?: string;
+  username: string;
+  firstname: string;
 }
 
 export interface contact extends sidebar {
@@ -14,7 +14,11 @@ export interface contact extends sidebar {
 }
 
 export interface discussion extends sidebar {
+  createdAt?: string;
+  updatedAt?: string;
   type: 'connected' | 'disconnected';
+  message: string;
+  room: string;
 }
 
 export interface sidebarState {
@@ -22,15 +26,19 @@ export interface sidebarState {
   contact?: contact;
   discussions: Array<discussion>;
   discussion?: discussion;
-  isLoading: boolean;
-  hasNext: boolean;
+  isLoading: {
+    [index: string]: boolean;
+  };
+  hasNext: {
+    [index: string]: boolean;
+  };
 }
 
 const initialState: sidebarState = {
   contacts: [],
   discussions: [],
-  isLoading: false,
-  hasNext: false,
+  isLoading: { discussion: false, contact: false },
+  hasNext: { discussion: false, contact: false },
 };
 
 const sidebar = createSlice({
@@ -38,25 +46,52 @@ const sidebar = createSlice({
   initialState,
   reducers: {
     setLoading(state, action) {
-      state.isLoading = action.payload;
-    },
-    loadContacts(state, action) {
-      state.contacts = [...state.contacts, ...action.payload];
+      const keys = Object.keys(action.payload);
+      for (let key of keys) {
+        state.isLoading[key] = action.payload[key];
+      }
     },
     setHasNext(state, action) {
-      state.hasNext = action.payload;
+      const keys = Object.keys(action.payload);
+      for (let key of keys) {
+        state.hasNext[key] = action.payload[key];
+      }
     },
     setContact(state, action) {
       state.contact = action.payload;
+    },
+    loadContacts(state, action) {
+      state.contacts = action.payload;
+    },
+    loadMoreContacts(state, action) {
+      state.contacts = [...state.contacts, ...action.payload];
+    },
+    loadDiscussions(state, action) {
+      state.discussions = action.payload;
+    },
+    loadMoreDiscussions(state, action) {
+      state.discussions = [...state.discussions, ...action.payload];
+    },
+    updateDiscussions(state, action) {
+      state.discussions = [
+        action.payload,
+        ...state.discussions.filter(
+          (discussion: any) => action.payload.room != discussion.room,
+        ),
+      ];
     },
   },
 });
 
 export const {
   setLoading,
-  loadContacts,
   setHasNext,
   setContact,
+  loadContacts,
+  loadMoreContacts,
+  loadDiscussions,
+  loadMoreDiscussions,
+  updateDiscussions,
 } = sidebar.actions;
 
 export default sidebar;
